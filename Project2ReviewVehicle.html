@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+	<meta charset="utf-8"/>	
+	<title>Enter Vehicle</title>
+	<link rel="stylesheet" type="text/css" href="default.css">	
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+		
+			<!-- Populate Table from Database -->
+				$.ajax({
+					url: "/review/table",
+					type: "GET",
+					contentType: "application/json",
+					processData: false,
+					complete: function (data) {
+						$('#output').html(data.responseText);
+					}
+				});	
+				
+			//Enter a Review into the database.
+            $('#review-submit').click(function () {
+                var payload = {
+                    name: $('#name').val(),
+					make: $('#make').val(),
+					model: $('#model').val(),
+					year: $('#year').val(),
+					review: $('#review').val()
+                };
+
+				console.log(payload);
+
+                $.ajax({
+                    url: "/review/enter",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output1').html(data.responseText);
+                    }
+                });
+            });
+			
+        });
+    </script>
+	
+  </head>
+  
+  <body>
+  
+	<!-- Container for the webpage -->
+	<div id="container">
+	
+		<!-- Header -->
+		<div id="header">
+				<h1>Enter Vehicle</h1>
+		</div>
+	
+		<!-- Navigation Bar -->
+		<div id="nav_bar">
+			<h2>Navigation</h2>
+			<table id="table">
+				<tr>					
+					<th><a href="Project2Main.html">Main</a></th>
+					<th><a href="Project2EnterVehicle.html">Vehicle Entry</a></th>
+					<th><a href="Project2About.html">About Us</a></th>
+					<th><a href="Project2AllVehicles.html">All Vehicles</a></th>
+					<th>Reviews</th>
+				</tr>	
+			</table>
+		</div>
+		
+		<!-- Contact Form -->
+			<div id="contact">
+				
+					<h3>Submit a Vehicle Review</h3>
+					Name: <input id="name" type="text" /> <br />
+					Make: <input id="make" type="text" /> <br />
+					Model: <input id="model" type="text" /> <br />
+					Year: <input id="year" type="text" /> <br />
+					Review: <textarea id="review" cols="25" rows="4"></textarea> <br />
+					<input id="review-submit" type="submit" value="Submit"/>
+				
+				<div id="vehicles">
+					<p id="output1"></p>
+				</div>
+			</div>
+		
+		<!-- All Reviews Table -->
+		<div id="Reviews">
+			<p id="output"></p>
+		</div>
+		
+		<!-- Review Picture -->
+		<div>
+			<img id="car-pic-review" src="http://borderlandswp.files.wordpress.com/2013/04/pen.jpg" alt="Pen" />
+		</div>
+		
+		<!-- Page Footer -->
+		<div id="footer">
+			<p>Car Value &#169;2014</p>
+		</div>
+		
+	</div>
+	
+  </body>
+  
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+		<meta charset="utf-8"/>
+		<title>About Us</title>
+		<link rel="stylesheet" type="text/css" href="default.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script>
+			$(document).ready(function () {
+			
+				//Enter a comment into the database.
+				$('#comment-submit').click(function () {
+					var payload = {
+						name: $('#name').val(),
+						email: $('#email').val(),
+						comment: $('#comment').val()
+					};
+
+					console.log(payload);
+
+					$.ajax({
+						url: "/entercomment",
+						type: "POST",
+						contentType: "application/json",
+						processData: false,
+						data: JSON.stringify(payload),
+						complete: function (data) {
+							$('#output').html(data.responseText);
+						}
+					});
+				});	
+			});
+		</script>
+		
+	</head>
+	
+	<body>
+		
+		<!-- Container for the webpage -->
+		<div id="container">
+		
+			<!-- Header -->
+			<div id="header">
+				<h1>About Car Value</h1>
+			</div>
+			
+			<!-- Navigation Bar -->
+			<div id="nav_bar">
+				<h2>Navigation</h2>
+				<table id="table">
+					<tr>					
+						<th><a href="Project2Main.html">Main</a></th>
+						<th><a href="Project2EnterVehicle.html">Vehicle Entry</a></th>						
+						<th><a href="Project2AllVehicles.html">All Vehicles</a></th>
+						<th><a href="Project2ReviewVehicle.html">Reviews</a></th>
+						<th>About Us</th>
+					</tr>	
+				</table>
+		`	</div>
+			
+			<!-- Picture of a car -->
+			<img id="car-pic-about" src="http://carbonoctane.com/wp-content/uploads/2012/04/P12_0206.jpg" alt="Porsche" width="400" />
+			
+			<!-- Website Description -->
+			<div id="text">
+				<p>Our website is designed to provide users with the ability to receive a value for their vehicles.
+				Our company specializes in evaluating cars based on their condition, age, and mileage.</p>
+			</div>
+		
+			<!-- Contact Form -->
+			<div id="contact">				
+					<h3>Questions? Comments?</h3>
+					Name: <input id="name" type="text" /> <br />
+					Email: <input id="email" type="text" /> <br />
+					Comments: <textarea id="comment" cols="25" rows="4"></textarea> <br />
+					<input id="comment-submit" type="submit" value="Submit"/>				
+				<div id="vehicles">
+					<p id="output"></p>
+				</div>
+			</div>
+			
+			<!-- Contact Info -->
+			<div id="about">
+				<p>Contact us by email at: carvalue@gmail.com. <br />
+				Phone: (925)-555-0143 <br />
+				6253 Bollinger Canyon Road <br />
+				San Ramon, CA 94526</p>
+			</div>
+			
+			<!-- Page Footer -->
+			<div id="footer">
+				<p>Car Value &#169;2014</p>
+			</div>
+			
+		</div>
+		
+	</body>
+		
+</html>

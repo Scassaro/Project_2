@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+	<meta charset="utf-8"/>	
+	<title>Enter Vehicle</title>
+	<link rel="stylesheet" type="text/css" href="default.css">	
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+		
+			// Populate select
+			$.ajax({
+				url: "vehicle/select",
+				type: "POST",
+				contentType: "application/json",
+				processData: false,
+				complete: function (data) {
+					$('div#vehicles').html(data.responseText);
+				}
+			});
+			
+			// Retrieve data from server for specific user
+			$('#vehicle-request').click(function () {
+				var payload1 = {
+					id: $('#vehicle-list').val(),
+				};
+				
+				$.ajax({
+					url: "vehicle/",
+					type: "GET",
+					contentType: "application/json",
+					processData: false,
+					data: JSON.stringify(payload1),
+					complete: function (data){
+						$('#output1').html(data.responseText);
+					}
+				});
+			});
+			
+			//Enter a vehicle into the database.
+            $('#vehicle-submit').click(function () {
+                var payload = {
+                    name: $('#name').val(),
+					model: $('#make').val(),
+					make: $('#model').val(),
+					year: $('#year').val(),
+					value: $('#value').val()
+                };
+
+				console.log(payload);
+
+                $.ajax({
+                    url: "/enter",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+	
+  </head>
+  
+  <body>
+  
+	<!-- Container for the webpage -->
+	<div id="container">
+	
+		<!-- Header -->
+		<div id="header">
+				<h1>Enter Vehicle</h1>
+		</div>
+	
+		<!-- Navigation Bar -->
+		<div id="nav_bar">
+			<h2>Navigation</h2>
+			<table id="table">
+				<tr>					
+					<th><a href="Project2Main.html">Main</a></th>
+					<th>Vehicle Entry</th>
+					<th><a href="Project2About.html">About Us</a></th>
+					<th><a href="Project2AllVehicles.html">All Vehicles</a></th>
+					<th><a href="Project2ReviewVehicle.html">Reviews</a></th>
+				</tr>	
+			</table>
+		</div>
+		
+		<!-- Enter Vehicle Input -->
+		<div id="vehicle_enter">
+			<h3>Enter Vehicle Information</h3>
+			Your Name: <input id="name" type="text" /> <br />
+			Vehicle Make: <input id="make" type="text" /> <br />
+			Vehicle Model: <input id="model" type="text" /> <br />
+			Vehicle Year: <input id="year" type="text" /> <br />
+			Estimated Value: <input id="value" type="text" /> <br />
+			<input id="vehicle-submit" type="submit" value="Submit"/>
+			<p id="output"></p>
+		</div>
+		
+		<!-- Select populated from the database -->
+		<div id="select">
+			<h3>Select your name from the database</h3>
+			<div id="vehicles"></div>
+			<input id="vehicle-request" type="submit" value="Submit"/>
+			<p id="output1"></p>
+			<br />
+		</div>
+		
+		<!-- Car Picture -->
+		<div>
+			<img id="car-pic-enter" src="http://business.inquirer.net/files/2013/02/luxury-cars1.jpg" alt="Car Lot" />
+		</div>
+		
+		<!-- Page Footer -->
+		<div id="footer">
+			<p>Car Value &#169;2014</p>
+		</div>
+		
+	</div>
+	
+  </body>
+  
+</html>

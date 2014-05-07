@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+	<meta charset="utf-8"/>	
+	<title>All Vehicles</title>
+	<link rel="stylesheet" type="text/css" href="default.css">	
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+		
+			<!-- Populate Table from Database -->
+				$.ajax({
+					url: "/vehicle/table",
+					type: "GET",
+					contentType: "application/json",
+					processData: false,
+					complete: function (data) {
+						$('#output').html(data.responseText);
+					}
+				});	
+        });
+    </script>
+	
+  </head>
+  
+  <body>
+  
+	<!-- Container for the webpage -->
+	<div id="container">
+	
+		<!-- Header -->
+		<div id="header">
+				<h1>All Vehicles</h1>
+		</div>
+	
+		<!-- Navigation Bar -->
+		<div id="nav_bar">
+			<h2>Navigation</h2>
+			<table id="table">
+				<tr>					
+					<th><a href="Project2Main.html">Main</a></th>
+					<th><a href="Project2EnterVehicle.html">Vehicle Entry</a></th>
+					<th><a href="Project2ReviewVehicle.html">Reviews</a></th>
+					<th>All Vehicles</th>
+					<th><a href="Project2About.html">About Us</a></th>
+				</tr>	
+			</table>
+		</div>
+		
+		<!-- All Vehicle Table -->
+		<div id="vehicles">
+			<p id="output"></p>
+		</div>
+		
+		<!-- Page Information -->
+		<div id="info">
+			<p>Any entered vehicles will automatically appear on this page.</p>
+		</div>
+		
+		<!-- Picture -->
+		<img id="car-pic-all" src="http://blog.caranddriver.com/wp-content/uploads/2012/12/2012-Lexus-LFA.jpg" alt="Lexus LFA" />
+		
+		<!-- Page Footer -->
+		<div id="footer">
+			<p>Car Value &#169;2014</p>
+		</div>
+		
+	</div>
+	
+  </body>
+  
+</html>
